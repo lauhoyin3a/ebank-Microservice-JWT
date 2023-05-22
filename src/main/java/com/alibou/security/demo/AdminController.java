@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/api/v1/admin")
@@ -16,8 +17,11 @@ public class AdminController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('admin:read')")
-    public String get() {
-        return "GET:: admin controller";
+    public String callApi() {
+        RestTemplate restTemplate = new RestTemplate();
+        String apiUrl= "http://localhost:8080/api/messages/transactions";
+        String response = restTemplate.getForObject(apiUrl, String.class);
+        return "Response from API: " + response;
     }
     @PostMapping
     @PreAuthorize("hasAuthority('admin:create')")

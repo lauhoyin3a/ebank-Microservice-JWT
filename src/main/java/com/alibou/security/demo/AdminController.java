@@ -19,26 +19,9 @@ public class AdminController {
     @PreAuthorize("hasAuthority('admin:read')")
     public String callApi() {
         RestTemplate restTemplate = new RestTemplate();
-        String apiUrl= "http://localhost:8080/api/messages/transactions";
+        String apiUrl= "http://localhost:8080/api/transactions/1234/2023-04";
         String response = restTemplate.getForObject(apiUrl, String.class);
         return "Response from API: " + response;
     }
-    @PostMapping
-    @PreAuthorize("hasAuthority('admin:create')")
-    @Hidden
-    public String post() {
-        return "POST:: admin controller";
-    }
-    @PutMapping
-    @PreAuthorize("hasAuthority('admin:update')")
-    @Hidden
-    public String put() {
-        return "PUT:: admin controller";
-    }
-    @DeleteMapping
-    @PreAuthorize("hasAuthority('admin:delete')")
-    @Hidden
-    public String delete() {
-        return "DELETE:: admin controller";
-    }
+
 }

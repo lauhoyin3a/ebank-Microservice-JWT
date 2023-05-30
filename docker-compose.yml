@@ -3,7 +3,7 @@ services:
     container_name: postgres-sql
     image: postgres
     environment:
-      POSTGRES_USER: username
+      POSTGRES_USER: username g
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres
     volumes:
@@ -29,9 +29,21 @@ services:
       - postgres
     restart: unless-stopped
 
+  jwt:
+    image: jwt
+    container_name: jwt
+    ports:
+      - "9090:9090"
+    depends_on:
+      - pgadmin
+      - postgres
+    networks:
+      - postgres
+
 networks:
   postgres:
     driver: bridge
+    external: true
 
 volumes:
   postgres:
